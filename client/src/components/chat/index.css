@@ -1,34 +1,47 @@
 .outerContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: #1a1a1d;
 }
+.total-user {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px;
+}
 
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   background: #ffffff;
   border-radius: 8px;
-  height: 60%;
-  width: 35%;
+  width: 60%;
+  height: 500px;
 }
 
-@media (min-width: 320px) and (max-width: 480px) {
-  .outerContainer {
-    height: 100%;
-  }
+.loading {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.text {
+  color: white;
+  display: flex;
+  justify-content: center;
+}
 
+@media (max-width: 767px) {
+  .container {
+    width: 90%;
+    height: 460px;
+  }
+}
+
+@media (max-width: 374px) {
   .container {
     width: 100%;
     height: 100%;
-  }
-}
-
-@media (min-width: 480px) and (max-width: 1200px) {
-  .container {
-    width: 60%;
   }
 }

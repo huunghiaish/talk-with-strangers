@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useHistory } from "react-router-dom";
-// import TextContainer from "../TextContainer/TextContainer";
+import ClipLoader from "react-spinners/ClipLoader";
 import Messages from "../Messages/Messages";
 import InfoBar from "../inforBar/index.js";
 import Input from "../Input/Input";
@@ -18,7 +18,8 @@ const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const ENDPOINT = process.env.ENDPOINT || "localhost:5000";
+  const ENDPOINT =
+    process.env.ENDPOINT || "https://talk-with-stranger-server.herokuapp.com/";
   useEffect(() => {
     if (history?.location?.state) {
       const { name, idUser } = history.location.state;
@@ -28,6 +29,9 @@ const Chat = () => {
         if (error) {
           alert(error);
         }
+      });
+      socket.on("serverData", ({ totalUsers }) => {
+        setTotalUsers(totalUsers);
       });
       setName(name);
       setIdUser(idUser);
@@ -45,10 +49,6 @@ const Chat = () => {
       socket.on("roomData", ({ users }) => {
         setUsers(users);
       });
-
-      socket.on("serverData", ({ totalUsers }) => {
-        setTotalUsers(totalUsers);
-      });
     }
   }, [name, idUser]);
 
@@ -62,7 +62,7 @@ const Chat = () => {
 
   return (
     <div className="outerContainer">
-      <div style={{ color: "white" }}> {`${totalUsers} user online`} </div>
+      <div className="total-user"> {`${totalUsers} stranger online`} </div>
       {users.length > 1 ? (
         <div className="container">
           <InfoBar />
@@ -74,7 +74,14 @@ const Chat = () => {
           />
         </div>
       ) : (
-        <div className="container">Finding</div>
+        <div className="find-stranger">
+          <div className="loading">
+            <ClipLoader size={150} color={"#36D7B7"} loading={true} />
+          </div>
+          <div className="text">
+            <span>Find a stranger ...</span>
+          </div>
+        </div>
       )}
     </div>
   );

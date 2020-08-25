@@ -1,6 +1,7 @@
 const express = require("express");
 const socketIO = require("socket.io");
 const http = require("http");
+const cors = require("cors");
 const {
   addUser,
   removeUser,
@@ -17,6 +18,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
+app.use(router);
+app.use(cors());
 // socketIO handling
 
 io.on("connection", (socket) => {
@@ -45,8 +48,7 @@ io.on("connection", (socket) => {
       users: getUsersInRoom(user.room),
     });
 
-    io.to(user.room).emit("serverData", {
-      room: user.room,
+    io.emit("serverData", {
       totalUsers: getNumberUsers(),
     });
 
@@ -84,8 +86,7 @@ io.on("connection", (socket) => {
         text: `${user.name} has left.`,
       });
 
-      io.to(user.room).emit("serverData", {
-        room: user.room,
+      io.emit("serverData", {
         totalUsers: getNumberUsers(),
       });
     }
