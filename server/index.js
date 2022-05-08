@@ -11,17 +11,16 @@ const {
 } = require("./user.js");
 
 // variable
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 1002;
 const router = require("./router.js");
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
-app.use(router);
 app.use(cors());
-// socketIO handling
 
+// socketIO handling
 io.on("connection", (socket) => {
   // console.log("We have a new connection!!");
 
@@ -93,6 +92,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(router);
+app.use("/",router);
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
+

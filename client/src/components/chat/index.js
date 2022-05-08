@@ -17,15 +17,18 @@ const Chat = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-
-  const ENDPOINT =
-    process.env.ENDPOINT || "https://talk-with-stranger-server.herokuapp.com/";
+  console.log('process.env.NODE_ENV',  process.env.NODE_ENV)
+  const SERVER_URI = process.env.SERVER_URI || `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${
+    window.location.host
+  }`
+  console.log('SERVER_URI', SERVER_URI)
   useEffect(() => {
     if (history?.location?.state) {
       const { name, idUser } = history.location.state;
-      socket = io(ENDPOINT);
-
+      socket = io(SERVER_URI);
+      console.log('socket', socket)
       socket.emit("join", { name, idUser }, (error) => {
+        
         if (error) {
           alert(error);
         }
@@ -38,7 +41,7 @@ const Chat = () => {
     } else {
       history.push("/");
     }
-  }, [history, ENDPOINT]);
+  }, [history, SERVER_URI]);
 
   useEffect(() => {
     if (name && idUser) {

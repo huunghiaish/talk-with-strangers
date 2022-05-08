@@ -6,9 +6,11 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "customize-cra": "^1.0.0",
     "formik": "^2.1.5",
     "query-string": "^6.13.1",
     "react": "^16.13.1",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^16.13.1",
     "react-emoji": "^0.5.0",
     "react-router": "^5.2.0",
@@ -20,9 +22,9 @@
     "uuid": "^8.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && echo '/* /index.html  200' | cat >build/_redirects ",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build && echo '/* /index.html  200' | cat >build/_redirects ",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
