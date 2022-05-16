@@ -17,10 +17,9 @@ const Chat = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  console.log('process.env.NODE_ENV',  process.env.NODE_ENV)
-  const SERVER_URI = process.env.SERVER_URI || `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${
-    window.location.host
-  }`
+  console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+  const SERVER_URI = process.env.NODE_ENV === 'production' ? `${window.location.protocol}://${window.location.hostname
+    }:1002` : process.env.SERVER_URI
   console.log('SERVER_URI', SERVER_URI)
   useEffect(() => {
     if (history?.location?.state) {
@@ -28,7 +27,7 @@ const Chat = () => {
       socket = io(SERVER_URI);
       console.log('socket', socket)
       socket.emit("join", { name, idUser }, (error) => {
-        
+
         if (error) {
           alert(error);
         }
