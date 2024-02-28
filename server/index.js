@@ -11,7 +11,7 @@ const {
 } = require("./user.js");
 
 // variable
-const PORT = process.env.PORT || 1002;
+const PORT = process.env.PORT || 3000;
 const router = require("./router.js");
 
 const app = express();

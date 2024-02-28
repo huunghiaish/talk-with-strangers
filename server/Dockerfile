@@ -6,6 +6,6 @@ COPY . .
 
 RUN npm install
 
-ENV PORT 1002
+ENV PORT 3000
 
 CMD ["npm","run","start"]

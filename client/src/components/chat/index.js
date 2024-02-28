@@ -17,10 +17,8 @@ const Chat = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  console.log('process.env.NODE_ENV', process.env.NODE_ENV)
-  const SERVER_URI = process.env.NODE_ENV === 'production' ? `${window.location.protocol}://${window.location.hostname
-    }:1002` : process.env.SERVER_URI
-  console.log('SERVER_URI', SERVER_URI)
+  const SERVER_URI_PRODUCTION = "https://server.talk-with-strangers.huunghianguyen.com/"
+  const SERVER_URI = process.env.NODE_ENV === 'production' ? SERVER_URI_PRODUCTION : process.env.SERVER_URI
   useEffect(() => {
     if (history?.location?.state) {
       const { name, idUser } = history.location.state;

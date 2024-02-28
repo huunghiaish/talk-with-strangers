@@ -6,7 +6,7 @@ import Chat from "./components/chat/index.js";
 const App = () => {
   const [name, setName] = useState(null);
   return (
-    <Router basename={process.env.APP_BASENAME_PATH || "/tws"}>
+    <Router basename={process.env.APP_BASENAME_PATH || "/"}>
       <Route
         path="/"
         exact
