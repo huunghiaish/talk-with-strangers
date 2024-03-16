@@ -2,7 +2,16 @@ const { v4: uuidv4 } = require("uuid");
 var _ = require("lodash");
 
 const users = [];
+const userTypings = [];
 const maxUserInRoom = 2;
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function capitalizeAllWords(str) {
+  return str.split(' ').map(capitalize).join(' ');
+}
 
 const getRoom = () => {
   const listRoomIncludeUser = [];
@@ -22,8 +31,8 @@ const getRoom = () => {
   }
 };
 
-const addUser = ({ id, name, idUser }) => {
-  name = name.trim().toLowerCase();
+const addUser = ({ id, name, idUser, avatar, country }) => {
+  name = capitalizeAllWords(name.trim());
   room = getRoom();
 
   if (!name) return { error: "Username are required." };
@@ -32,7 +41,7 @@ const addUser = ({ id, name, idUser }) => {
 
   if (existingUser) return { error: "idUser is taken." };
 
-  const user = { id, name, room, idUser };
+  const user = { id, name, room, idUser, avatar, country };
 
   users.push(user);
 
@@ -45,11 +54,26 @@ const removeUser = (id) => {
   if (index !== -1) return users.splice(index, 1)[0];
 };
 
+const addUserTyping = ({ idUser, isTyping }) => {
+
+  const index = userTypings.findIndex((userTyping) => userTyping.idUser === idUser);
+
+  if (index !== -1) userTypings.splice(index, 1)[0];
+
+  const userTyping = { idUser, isTyping };
+
+  userTypings.push(userTyping);
+
+  return { userTyping };
+};
+
 const getUser = (id) => users.find((user) => user.id === id);
 
 const getUsersInRoom = (room) => users.filter((user) => user.room === room);
 
 const getNumberUsers = () => users.length;
+
+const getUserTypings = () => userTypings;
 
 module.exports = {
   addUser,
@@ -57,4 +81,6 @@ module.exports = {
   getUser,
   getUsersInRoom,
   getNumberUsers,
+  addUserTyping,
+  getUserTypings
 };
