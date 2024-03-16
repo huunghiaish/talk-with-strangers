@@ -122,3 +122,18 @@ button:focus {
 div[role=option]{
   padding: 0;
 }
+
+/* fix production */
+.css-hlgwow {
+  padding: 0 !important;
+  cursor: pointer !important;
+}
+.css-1wy0on6 {
+  display: none !important; 
+}
+.css-qr46ko {
+  padding: 0 !important;
+}
+.css-qr46ko::-webkit-scrollbar {
+  display: none;
+}
