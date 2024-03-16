@@ -8,6 +8,8 @@ const {
   getUser,
   getUsersInRoom,
   getNumberUsers,
+  addUserTyping,
+  getUserTypings
 } = require("./user.js");
 
 // variable
@@ -26,19 +28,19 @@ io.on("connection", (socket) => {
 
   // event
   // see message
-  socket.on("join", ({ name, idUser }, callback) => {
-    const { error, user } = addUser({ id: socket.id, name, idUser });
+  socket.on("join", ({ name, idUser, avatar, country }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, idUser, avatar, country });
 
     if (error) return callback(error);
 
-    socket.emit("message", {
-      user: "admin",
-      text: `${user.name} welcome to the room`,
-    });
-    socket.broadcast.to(user.room).emit("message", {
-      user: "admin",
-      text: `${user.name} has joined!`,
-    });
+    // socket.emit("message", {
+    //   user: "admin",
+    //   text: `${user.name} welcome to the room`,
+    // });
+    // socket.broadcast.to(user.room).emit("message", {
+    //   user: "admin",
+    //   text: `${user.name} has joined!`,
+    // });
 
     socket.join(user.room);
 
@@ -49,6 +51,18 @@ io.on("connection", (socket) => {
 
     io.emit("serverData", {
       totalUsers: getNumberUsers(),
+    });
+
+    callback();
+  });
+
+  socket.on("typing", ({ idUser, isTyping }, callback) => {
+    const { error, userTyping } = addUserTyping({ idUser, isTyping });
+
+    if (error) return callback(error);
+
+    io.emit("userTypings", {
+      userTypings: getUserTypings(),
     });
 
     callback();
@@ -87,6 +101,11 @@ io.on("connection", (socket) => {
 
       io.emit("serverData", {
         totalUsers: getNumberUsers(),
+      });
+
+      io.to(user.room).emit("roomData", {
+        room: user.room,
+        users: getUsersInRoom(user.room),
       });
     }
   });
