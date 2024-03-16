@@ -30,6 +30,7 @@ body {
   border-radius: 0;
   padding: 15px 20px;
   width: 100%;
+  font-size: 20px;
 }
 
 .heading {
@@ -49,6 +50,7 @@ body {
   display: inline-block;
   border: none;
   width: 100%;
+  cursor: pointer;
 }
 
 .mt-20 {
@@ -67,4 +69,56 @@ body {
 
 button:focus {
   outline: 0;
+}
+
+.avatar-select {
+  width: 100px;
+  height: 100%;
+  margin-left: 5px;
+}
+.avatar-option {
+  width: 70px;
+  height:70px;
+  cursor:  pointer !important;
+}
+.img-option {
+  width: 70px;
+  height:70px;
+}
+
+.css-13cymwt-control {
+  cursor: pointer !important;
+  display: contents !important;
+}
+
+.css-t3ipsp-control {
+  display: contents !important;
+}
+
+.css-1fdsijx-ValueContainer {
+  padding: 0 !important;
+  cursor: pointer !important;
+}
+
+.css-1hb7zxy-IndicatorsContainer {
+  display: none !important; 
+}
+
+.css-1nmdiq5-menu {
+  cursor:  pointer !important;
+}
+
+.css-1n6sfyn-MenuList{
+ padding: 0 !important;
+}
+
+.css-1dimb5e-singleValue {
+  margin: 0 !important;
+}
+.css-1n6sfyn-MenuList::-webkit-scrollbar {
+  display: none;
+}
+
+div[role=option]{
+  padding: 0;
 }

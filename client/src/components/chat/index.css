@@ -20,6 +20,7 @@
   border-radius: 8px;
   width: 60%;
   height: 500px;
+  overflow: hidden;
 }
 
 .loading {
